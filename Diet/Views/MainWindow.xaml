@@ -1,0 +1,220 @@
+﻿<Window x:Class="Diet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diet"
+        xmlns:p="clr-namespace:Diet.Properties"
+        xmlns:vm="clr-namespace:Diet.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed">
+    <Window.ContextMenu>
+        <ContextMenu Name="cntx" Background="#FF292929">
+            <ContextMenu.Style>
+                <Style TargetType="{x:Type ContextMenu}">
+                    <Setter Property="ItemsPanel">
+                        <Setter.Value>
+                            <ItemsPanelTemplate>
+                                <StackPanel Margin="-20,0,0,0" Background="#FF292929"/>
+                            </ItemsPanelTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ContextMenu.Style>
+            <MenuItem Name="mItemFood" Header="{x:Static p:Resource.AddNewFood}"
+                      Click="AddFoodManually" Foreground="#FFCBCBCB"/>
+            <MenuItem Name="mItemFoodFromSite" Header="{x:Static p:Resource.AddNewFoodFromSite}"
+                      Click="AddFoodFromWebSite" Foreground="#FFCBCBCB"/>
+            <MenuItem Name="mItemLanguage" Header="{x:Static p:Resource.AnotherLanguage}"
+                      Click="SwitchLanguage" Foreground="#FFCBCBCB"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid Background="#FF1C1B1B">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Background="#FF1C1B1B">
+                <ItemsControl ItemsSource="{Binding Foods}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="10,5,10,0">
+                                <Viewbox Width="120" DockPanel.Dock="Left">
+                                    <TextBlock Margin="0,5,0,0" Name="tb" Text="{Binding Name}" HorizontalAlignment="Stretch" Foreground="#FF77D1CE"/>
+                                </Viewbox>
+                                <Button Margin="0,4,0,0" DockPanel.Dock="Right" Height="{Binding ElementName=tb, Path=ActualHeight}" 
+                                        Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualHeight}"
+                                        Click="DeleteSliderButton_Click" Tag="{Binding Name}">
+                                    <Button.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7"/>
+                                    </Button.RenderTransform>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Grid.Resources>
+                                                    <Style TargetType="Line">
+                                                        <Style.Setters>
+                                                            <Setter Property="Stroke" Value="#940000"/>
+                                                            <Setter Property="StrokeThickness" Value="3"/>
+                                                        </Style.Setters>
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <Rectangle Fill="#FF1C1B1B"/>
+                                                <Line x:Name="line1" X1="0" Y1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <Line x:Name="line2" X1="0" Y1="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}" X2="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}" Y2="0"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="line1" Property="Stroke" Value="Red"/>
+                                                    <Setter TargetName="line2" Property="Stroke" Value="Red"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="line1" Property="Shape.StrokeThickness" Value="2"/>
+                                                    <Setter TargetName="line2" Property="Shape.StrokeThickness" Value="2"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Slider Tag="{Binding Name}" Maximum="{Binding Max}" Minimum="0" Margin="5,5,15,0" AutoToolTipPlacement="BottomRight"
+                                        IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged" MouseEnter="Slider_MouseEnter"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+        <GroupBox Header="{x:Static p:Resource.FoodBZHU}" 
+                  Foreground="Green" Grid.Column="0" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <local:GradientRectangle Grid.Row="0" x:Name="calories" MinNormalValue="{Binding Etalon.Calories}" CurrentValue="{Binding Summary.Calories}" Header="{x:Static p:Resource.Calories}"/>
+                <local:GradientRectangle Grid.Row="1" x:Name="proteins" MinNormalValue="{Binding Etalon.Proteins}" CurrentValue="{Binding Summary.Proteins}" Header="{x:Static p:Resource.Proteins}"/>
+                <local:GradientRectangle Grid.Row="2" x:Name="fats" MinNormalValue="{Binding Etalon.Fats}" CurrentValue="{Binding Summary.Fats}" Header="{x:Static p:Resource.Fats}"/>
+                <local:GradientRectangle Grid.Row="3" x:Name="carbohydrats" MinNormalValue="{Binding Etalon.Carbohydrats}" CurrentValue="{Binding Summary.Carbohydrats}" Header="{x:Static p:Resource.Carbohydrats}"/>
+                <local:GradientRectangle Grid.Row="4" x:Name="dieteryFiber" MinNormalValue="{Binding Etalon.DieteryFiber}" CurrentValue="{Binding Summary.DieteryFiber}" Header="{x:Static p:Resource.DieteryFiber}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resource.Vitamins}"
+                  Foreground="Green" Grid.Column="1" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GradientRectangle Grid.Row="0" x:Name="a" MinNormalValue="{Binding Etalon.A}" CurrentValue="{Binding Summary.A}" Header="{x:Static p:Resource.A}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="b1" MinNormalValue="{Binding Etalon.B1}" CurrentValue="{Binding Summary.B1}" Header="{x:Static p:Resource.B1}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="b2" MinNormalValue="{Binding Etalon.B2}" CurrentValue="{Binding Summary.B2}" Header="{x:Static p:Resource.B2}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="b3" MinNormalValue="{Binding Etalon.B3}" CurrentValue="{Binding Summary.B3}" Header="{x:Static p:Resource.B3}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="b5" MinNormalValue="{Binding Etalon.B5}" CurrentValue="{Binding Summary.B5}" Header="{x:Static p:Resource.B5}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="b6" MinNormalValue="{Binding Etalon.B6}" CurrentValue="{Binding Summary.B6}" Header="{x:Static p:Resource.B6}"/>
+                    <local:GradientRectangle Grid.Row="6" x:Name="b7" MinNormalValue="{Binding Etalon.B7}" CurrentValue="{Binding Summary.B7}" Header="{x:Static p:Resource.B7}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GradientRectangle Grid.Row="0" x:Name="b9" MinNormalValue="{Binding Etalon.B9}" CurrentValue="{Binding Summary.B9}" Header="{x:Static p:Resource.B9}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="b12" MinNormalValue="{Binding Etalon.B12}" CurrentValue="{Binding Summary.B12}" Header="{x:Static p:Resource.B12}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="c" MinNormalValue="{Binding Etalon.C}" CurrentValue="{Binding Summary.C}" Header="{x:Static p:Resource.C}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="d" MinNormalValue="{Binding Etalon.D}" CurrentValue="{Binding Summary.D}" Header="{x:Static p:Resource.D}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="e" MinNormalValue="{Binding Etalon.E}" CurrentValue="{Binding Summary.E}" Header="{x:Static p:Resource.E}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="k" MinNormalValue="{Binding Etalon.K}" CurrentValue="{Binding Summary.K}" Header="{x:Static p:Resource.K}"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resource.Micronutrients}"
+                  Foreground="Green" Grid.Column="2" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GradientRectangle Grid.Row="0" x:Name="potassium" MinNormalValue="{Binding Etalon.Potassium}" CurrentValue="{Binding Summary.Potassium}" Header="{x:Static p:Resource.Potassium}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="magnesium" MinNormalValue="{Binding Etalon.Magnesium}" CurrentValue="{Binding Summary.Magnesium}" Header="{x:Static p:Resource.Magnesium}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="sulfur" MinNormalValue="{Binding Etalon.Sulfur}" CurrentValue="{Binding Summary.Sulfur}" Header="{x:Static p:Resource.Sulfur}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="calcium" MinNormalValue="{Binding Etalon.Calcium}" CurrentValue="{Binding Summary.Calcium}" Header="{x:Static p:Resource.Calcium}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="iron" MinNormalValue="{Binding Etalon.Iron}" CurrentValue="{Binding Summary.Iron}" Header="{x:Static p:Resource.Iron}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="manganese" MinNormalValue="{Binding Etalon.Manganese}" CurrentValue="{Binding Summary.Manganese}" Header="{x:Static p:Resource.Manganese}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GradientRectangle Grid.Row="0" x:Name="molybdenum" MinNormalValue="{Binding Etalon.Molybdenum}" CurrentValue="{Binding Summary.Molybdenum}" Header="{x:Static p:Resource.Molybdenum}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="selenium" MinNormalValue="{Binding Etalon.Selenium}" CurrentValue="{Binding Summary.Selenium}" Header="{x:Static p:Resource.Selenium}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="iodine" MinNormalValue="{Binding Etalon.Iodine}" CurrentValue="{Binding Summary.Iodine}" Header="{x:Static p:Resource.Iodine}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="phosphorus" MinNormalValue="{Binding Etalon.Phosphorus}" CurrentValue="{Binding Summary.Phosphorus}" Header="{x:Static p:Resource.Phosphorus}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="omega3" MinNormalValue="{Binding Etalon.Omega3}" CurrentValue="{Binding Summary.Omega3}" Header="{x:Static p:Resource.Omega3}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="omega6" MinNormalValue="{Binding Etalon.Omega6}" CurrentValue="{Binding Summary.Omega6}" Header="{x:Static p:Resource.Omega6}"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GradientRectangle Grid.Row="0" x:Name="sodium" MinNormalValue="{Binding Etalon.Sodium}" CurrentValue="{Binding Summary.Sodium}" Header="{x:Static p:Resource.Sodium}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="zink" MinNormalValue="{Binding Etalon.Zink}" CurrentValue="{Binding Summary.Zink}" Header="{x:Static p:Resource.Zink}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="copper" MinNormalValue="{Binding Etalon.Copper}" CurrentValue="{Binding Summary.Copper}" Header="{x:Static p:Resource.Copper}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="fluorine" MinNormalValue="{Binding Etalon.Fluorine}" CurrentValue="{Binding Summary.Fluorine}" Header="{x:Static p:Resource.Fluorine}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="chromium" MinNormalValue="{Binding Etalon.Chromium}" CurrentValue="{Binding Summary.Chromium}" Header="{x:Static p:Resource.Chromium}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="chlorine" MinNormalValue="{Binding Etalon.Chlorine}" CurrentValue="{Binding Summary.Chlorine}" Header="{x:Static p:Resource.Chlorine}"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
