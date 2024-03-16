@@ -94,7 +94,7 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-        <GroupBox Header="{x:Static p:Resource.FoodBZHU}" 
+        <GroupBox Margin="1" Header="{x:Static p:Resource.FoodBZHU}" 
                   Foreground="Green" Grid.Column="0" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
@@ -113,7 +113,7 @@
                 <local:GradientRectangle Grid.Row="4" x:Name="dieteryFiber" MinNormalValue="{Binding Etalon.DieteryFiber}" CurrentValue="{Binding Summary.DieteryFiber}" Header="{x:Static p:Resource.DieteryFiber}"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="{x:Static p:Resource.Vitamins}"
+        <GroupBox Margin="1" Header="{x:Static p:Resource.Vitamins}"
                   Foreground="Green" Grid.Column="1" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -157,7 +157,7 @@
                 </Grid>
             </Grid>
         </GroupBox>
-        <GroupBox Header="{x:Static p:Resource.Micronutrients}"
+        <GroupBox Margin="1" Header="{x:Static p:Resource.Micronutrients}"
                   Foreground="Green" Grid.Column="2" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
