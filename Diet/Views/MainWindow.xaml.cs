@@ -24,7 +24,7 @@ namespace Diet
         }
 
         private readonly ViewModel _dataContext;
-        private Food _selectedFood;
+        private Food _selectedFood = null!;
 
         public void SetWeight(double weight)
         {
