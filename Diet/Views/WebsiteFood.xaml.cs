@@ -70,7 +70,7 @@ namespace Diet
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            string calories = @"<span itemprop=""calories"">([\d.]+\s*кКал)<\/span>";
+            string calories = @"<span itemprop=""calories"">([\d.]+\s*ккал)<\/span>";
             string proteins = @"<span itemprop=""proteinContent"">([\d.]+\s*г)<\/span>";
             string fats = @"<span itemprop=""fatContent"">([\d.]+\s*г)<\/span>";
             string carbohydrats = @"<span itemprop=""carbohydrateContent"">([\d.]+\s*г)<\/span>";
