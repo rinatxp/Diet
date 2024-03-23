@@ -1,10 +1,8 @@
 ﻿namespace Diet.Models;
 
-public partial class Food : Summary
+public partial class Food : FoodBase
 {
-    public int Id { get; set; }
-
     public required string Name { get; set; }
 
-    public long Max { get; set; }
+    public long MaxDailyPortion { get; set; }
 }

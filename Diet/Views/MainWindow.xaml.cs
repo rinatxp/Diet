@@ -8,27 +8,22 @@ using System.Windows.Input;
 
 namespace Diet
 {
-    /// <summary>
-    /// add foods from site
-    /// save diet
-    /// 
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             SetCultureInfo();
             InitializeComponent();
-            _dataContext = new ViewModel();
+            _dataContext = new NutritionInfo();
             this.DataContext = _dataContext;
         }
 
-        private readonly ViewModel _dataContext;
+        private readonly NutritionInfo _dataContext;
         private Food _selectedFood = null!;
 
         public void SetWeight(double weight)
         {
-            _dataContext.Etalon.CalculateByWeight(weight);
+            _dataContext.DailyNorm.CalculateByWeight(weight);
         }
 
         private void SetCultureInfo()
@@ -74,7 +69,7 @@ namespace Diet
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            _dataContext.Summary.AddValues(_selectedFood, e.NewValue - e.OldValue);
+            _dataContext.TotalDaily.AddValues(_selectedFood, e.NewValue - e.OldValue);
         }
 
         private void Slider_MouseEnter(object sender, MouseEventArgs e)

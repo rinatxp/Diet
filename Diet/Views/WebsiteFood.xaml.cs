@@ -56,7 +56,7 @@ namespace Diet
             try
             {
                 _food = GetFood(html);
-                _food.Max = max;
+                _food.MaxDailyPortion = max;
                 Close();
             }
             catch (Exception ex)

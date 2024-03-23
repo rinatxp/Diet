@@ -6,16 +6,16 @@ using System.Windows.Data;
 
 namespace Diet.ViewModels
 {
-    public class ViewModel
+    public class NutritionInfo
     {
-        public ViewModel()
+        public NutritionInfo()
         {
             LoadData();
             BindingOperations.EnableCollectionSynchronization(Foods, _locker);
         }
 
-        public Summary Summary { get; set; } = new();
-        public Etalon Etalon { get; set; } = new();
+        public TotalDaily TotalDaily { get; set; } = new();
+        public DailyNorm DailyNorm { get; set; } = new();
         public IEnumerable<Food> Foods => _foods;
         private ObservableCollection<Food> _foods = null!;
         private readonly object _locker = new object();
@@ -26,7 +26,7 @@ namespace Diet.ViewModels
             try
             {
                 var data = File.ReadAllText(_dataPath);
-                _foods = JsonConvert.DeserializeObject<ObservableCollection<Food>>(data)!;
+                _foods = JsonConvert.DeserializeObject<ObservableCollection<Food>>(data) ?? new ObservableCollection<Food>();
             }
             catch (Exception)
             {

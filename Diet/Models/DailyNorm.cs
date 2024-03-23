@@ -1,6 +1,6 @@
 ﻿namespace Diet.Models
 {
-    public class Etalon : Summary
+    public class DailyNorm : FoodBase
     {
         public void CalculateByWeight(double weight)
         {

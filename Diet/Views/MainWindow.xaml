@@ -86,8 +86,10 @@
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                <Slider Tag="{Binding Name}" Maximum="{Binding Max}" Minimum="0" Margin="5,5,15,0" AutoToolTipPlacement="BottomRight"
-                                        IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="Slider_ValueChanged" MouseEnter="Slider_MouseEnter"/>
+                                <Slider Tag="{Binding Name}" Maximum="{Binding MaxDailyPortion}" Minimum="0"
+                                        Margin="5,5,15,0" AutoToolTipPlacement="BottomRight"
+                                        IsSnapToTickEnabled="True" TickFrequency="1" Name="slider"
+                                        ValueChanged="Slider_ValueChanged" MouseEnter="Slider_MouseEnter"/>
                             </DockPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -106,11 +108,11 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <local:GradientRectangle Grid.Row="0" x:Name="calories" MinNormalValue="{Binding Etalon.Calories}" CurrentValue="{Binding Summary.Calories}" Header="{x:Static p:Resource.Calories}"/>
-                <local:GradientRectangle Grid.Row="1" x:Name="proteins" MinNormalValue="{Binding Etalon.Proteins}" CurrentValue="{Binding Summary.Proteins}" Header="{x:Static p:Resource.Proteins}"/>
-                <local:GradientRectangle Grid.Row="2" x:Name="fats" MinNormalValue="{Binding Etalon.Fats}" CurrentValue="{Binding Summary.Fats}" Header="{x:Static p:Resource.Fats}"/>
-                <local:GradientRectangle Grid.Row="3" x:Name="carbohydrats" MinNormalValue="{Binding Etalon.Carbohydrats}" CurrentValue="{Binding Summary.Carbohydrats}" Header="{x:Static p:Resource.Carbohydrats}"/>
-                <local:GradientRectangle Grid.Row="4" x:Name="dieteryFiber" MinNormalValue="{Binding Etalon.DieteryFiber}" CurrentValue="{Binding Summary.DieteryFiber}" Header="{x:Static p:Resource.DieteryFiber}"/>
+                <local:GradientRectangle Grid.Row="0" x:Name="calories" MinNormalValue="{Binding DailyNorm.Calories}" CurrentValue="{Binding TotalDaily.Calories}" Header="{x:Static p:Resource.Calories}"/>
+                <local:GradientRectangle Grid.Row="1" x:Name="proteins" MinNormalValue="{Binding DailyNorm.Proteins}" CurrentValue="{Binding TotalDaily.Proteins}" Header="{x:Static p:Resource.Proteins}"/>
+                <local:GradientRectangle Grid.Row="2" x:Name="fats" MinNormalValue="{Binding DailyNorm.Fats}" CurrentValue="{Binding TotalDaily.Fats}" Header="{x:Static p:Resource.Fats}"/>
+                <local:GradientRectangle Grid.Row="3" x:Name="carbohydrats" MinNormalValue="{Binding DailyNorm.Carbohydrats}" CurrentValue="{Binding TotalDaily.Carbohydrats}" Header="{x:Static p:Resource.Carbohydrats}"/>
+                <local:GradientRectangle Grid.Row="4" x:Name="dieteryFiber" MinNormalValue="{Binding DailyNorm.DieteryFiber}" CurrentValue="{Binding TotalDaily.DieteryFiber}" Header="{x:Static p:Resource.DieteryFiber}"/>
             </Grid>
         </GroupBox>
         <GroupBox Margin="1" Header="{x:Static p:Resource.Vitamins}"
@@ -130,13 +132,13 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GradientRectangle Grid.Row="0" x:Name="a" MinNormalValue="{Binding Etalon.A}" CurrentValue="{Binding Summary.A}" Header="{x:Static p:Resource.A}"/>
-                    <local:GradientRectangle Grid.Row="1" x:Name="b1" MinNormalValue="{Binding Etalon.B1}" CurrentValue="{Binding Summary.B1}" Header="{x:Static p:Resource.B1}"/>
-                    <local:GradientRectangle Grid.Row="2" x:Name="b2" MinNormalValue="{Binding Etalon.B2}" CurrentValue="{Binding Summary.B2}" Header="{x:Static p:Resource.B2}"/>
-                    <local:GradientRectangle Grid.Row="3" x:Name="b3" MinNormalValue="{Binding Etalon.B3}" CurrentValue="{Binding Summary.B3}" Header="{x:Static p:Resource.B3}"/>
-                    <local:GradientRectangle Grid.Row="4" x:Name="b5" MinNormalValue="{Binding Etalon.B5}" CurrentValue="{Binding Summary.B5}" Header="{x:Static p:Resource.B5}"/>
-                    <local:GradientRectangle Grid.Row="5" x:Name="b6" MinNormalValue="{Binding Etalon.B6}" CurrentValue="{Binding Summary.B6}" Header="{x:Static p:Resource.B6}"/>
-                    <local:GradientRectangle Grid.Row="6" x:Name="b7" MinNormalValue="{Binding Etalon.B7}" CurrentValue="{Binding Summary.B7}" Header="{x:Static p:Resource.B7}"/>
+                    <local:GradientRectangle Grid.Row="0" x:Name="a" MinNormalValue="{Binding DailyNorm.A}" CurrentValue="{Binding TotalDaily.A}" Header="{x:Static p:Resource.A}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="b1" MinNormalValue="{Binding DailyNorm.B1}" CurrentValue="{Binding TotalDaily.B1}" Header="{x:Static p:Resource.B1}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="b2" MinNormalValue="{Binding DailyNorm.B2}" CurrentValue="{Binding TotalDaily.B2}" Header="{x:Static p:Resource.B2}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="b3" MinNormalValue="{Binding DailyNorm.B3}" CurrentValue="{Binding TotalDaily.B3}" Header="{x:Static p:Resource.B3}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="b5" MinNormalValue="{Binding DailyNorm.B5}" CurrentValue="{Binding TotalDaily.B5}" Header="{x:Static p:Resource.B5}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="b6" MinNormalValue="{Binding DailyNorm.B6}" CurrentValue="{Binding TotalDaily.B6}" Header="{x:Static p:Resource.B6}"/>
+                    <local:GradientRectangle Grid.Row="6" x:Name="b7" MinNormalValue="{Binding DailyNorm.B7}" CurrentValue="{Binding TotalDaily.B7}" Header="{x:Static p:Resource.B7}"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -148,12 +150,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GradientRectangle Grid.Row="0" x:Name="b9" MinNormalValue="{Binding Etalon.B9}" CurrentValue="{Binding Summary.B9}" Header="{x:Static p:Resource.B9}"/>
-                    <local:GradientRectangle Grid.Row="1" x:Name="b12" MinNormalValue="{Binding Etalon.B12}" CurrentValue="{Binding Summary.B12}" Header="{x:Static p:Resource.B12}"/>
-                    <local:GradientRectangle Grid.Row="2" x:Name="c" MinNormalValue="{Binding Etalon.C}" CurrentValue="{Binding Summary.C}" Header="{x:Static p:Resource.C}"/>
-                    <local:GradientRectangle Grid.Row="3" x:Name="d" MinNormalValue="{Binding Etalon.D}" CurrentValue="{Binding Summary.D}" Header="{x:Static p:Resource.D}"/>
-                    <local:GradientRectangle Grid.Row="4" x:Name="e" MinNormalValue="{Binding Etalon.E}" CurrentValue="{Binding Summary.E}" Header="{x:Static p:Resource.E}"/>
-                    <local:GradientRectangle Grid.Row="5" x:Name="k" MinNormalValue="{Binding Etalon.K}" CurrentValue="{Binding Summary.K}" Header="{x:Static p:Resource.K}"/>
+                    <local:GradientRectangle Grid.Row="0" x:Name="b9" MinNormalValue="{Binding DailyNorm.B9}" CurrentValue="{Binding TotalDaily.B9}" Header="{x:Static p:Resource.B9}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="b12" MinNormalValue="{Binding DailyNorm.B12}" CurrentValue="{Binding TotalDaily.B12}" Header="{x:Static p:Resource.B12}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="c" MinNormalValue="{Binding DailyNorm.C}" CurrentValue="{Binding TotalDaily.C}" Header="{x:Static p:Resource.C}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="d" MinNormalValue="{Binding DailyNorm.D}" CurrentValue="{Binding TotalDaily.D}" Header="{x:Static p:Resource.D}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="e" MinNormalValue="{Binding DailyNorm.E}" CurrentValue="{Binding TotalDaily.E}" Header="{x:Static p:Resource.E}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="k" MinNormalValue="{Binding DailyNorm.K}" CurrentValue="{Binding TotalDaily.K}" Header="{x:Static p:Resource.K}"/>
                 </Grid>
             </Grid>
         </GroupBox>
@@ -175,12 +177,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GradientRectangle Grid.Row="0" x:Name="potassium" MinNormalValue="{Binding Etalon.Potassium}" CurrentValue="{Binding Summary.Potassium}" Header="{x:Static p:Resource.Potassium}"/>
-                    <local:GradientRectangle Grid.Row="1" x:Name="magnesium" MinNormalValue="{Binding Etalon.Magnesium}" CurrentValue="{Binding Summary.Magnesium}" Header="{x:Static p:Resource.Magnesium}"/>
-                    <local:GradientRectangle Grid.Row="2" x:Name="sulfur" MinNormalValue="{Binding Etalon.Sulfur}" CurrentValue="{Binding Summary.Sulfur}" Header="{x:Static p:Resource.Sulfur}"/>
-                    <local:GradientRectangle Grid.Row="3" x:Name="calcium" MinNormalValue="{Binding Etalon.Calcium}" CurrentValue="{Binding Summary.Calcium}" Header="{x:Static p:Resource.Calcium}"/>
-                    <local:GradientRectangle Grid.Row="4" x:Name="iron" MinNormalValue="{Binding Etalon.Iron}" CurrentValue="{Binding Summary.Iron}" Header="{x:Static p:Resource.Iron}"/>
-                    <local:GradientRectangle Grid.Row="5" x:Name="manganese" MinNormalValue="{Binding Etalon.Manganese}" CurrentValue="{Binding Summary.Manganese}" Header="{x:Static p:Resource.Manganese}"/>
+                    <local:GradientRectangle Grid.Row="0" x:Name="potassium" MinNormalValue="{Binding DailyNorm.Potassium}" CurrentValue="{Binding TotalDaily.Potassium}" Header="{x:Static p:Resource.Potassium}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="magnesium" MinNormalValue="{Binding DailyNorm.Magnesium}" CurrentValue="{Binding TotalDaily.Magnesium}" Header="{x:Static p:Resource.Magnesium}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="sulfur" MinNormalValue="{Binding DailyNorm.Sulfur}" CurrentValue="{Binding TotalDaily.Sulfur}" Header="{x:Static p:Resource.Sulfur}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="calcium" MinNormalValue="{Binding DailyNorm.Calcium}" CurrentValue="{Binding TotalDaily.Calcium}" Header="{x:Static p:Resource.Calcium}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="iron" MinNormalValue="{Binding DailyNorm.Iron}" CurrentValue="{Binding TotalDaily.Iron}" Header="{x:Static p:Resource.Iron}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="manganese" MinNormalValue="{Binding DailyNorm.Manganese}" CurrentValue="{Binding TotalDaily.Manganese}" Header="{x:Static p:Resource.Manganese}"/>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -192,12 +194,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GradientRectangle Grid.Row="0" x:Name="molybdenum" MinNormalValue="{Binding Etalon.Molybdenum}" CurrentValue="{Binding Summary.Molybdenum}" Header="{x:Static p:Resource.Molybdenum}"/>
-                    <local:GradientRectangle Grid.Row="1" x:Name="selenium" MinNormalValue="{Binding Etalon.Selenium}" CurrentValue="{Binding Summary.Selenium}" Header="{x:Static p:Resource.Selenium}"/>
-                    <local:GradientRectangle Grid.Row="2" x:Name="iodine" MinNormalValue="{Binding Etalon.Iodine}" CurrentValue="{Binding Summary.Iodine}" Header="{x:Static p:Resource.Iodine}"/>
-                    <local:GradientRectangle Grid.Row="3" x:Name="phosphorus" MinNormalValue="{Binding Etalon.Phosphorus}" CurrentValue="{Binding Summary.Phosphorus}" Header="{x:Static p:Resource.Phosphorus}"/>
-                    <local:GradientRectangle Grid.Row="4" x:Name="omega3" MinNormalValue="{Binding Etalon.Omega3}" CurrentValue="{Binding Summary.Omega3}" Header="{x:Static p:Resource.Omega3}"/>
-                    <local:GradientRectangle Grid.Row="5" x:Name="omega6" MinNormalValue="{Binding Etalon.Omega6}" CurrentValue="{Binding Summary.Omega6}" Header="{x:Static p:Resource.Omega6}"/>
+                    <local:GradientRectangle Grid.Row="0" x:Name="molybdenum" MinNormalValue="{Binding DailyNorm.Molybdenum}" CurrentValue="{Binding TotalDaily.Molybdenum}" Header="{x:Static p:Resource.Molybdenum}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="selenium" MinNormalValue="{Binding DailyNorm.Selenium}" CurrentValue="{Binding TotalDaily.Selenium}" Header="{x:Static p:Resource.Selenium}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="iodine" MinNormalValue="{Binding DailyNorm.Iodine}" CurrentValue="{Binding TotalDaily.Iodine}" Header="{x:Static p:Resource.Iodine}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="phosphorus" MinNormalValue="{Binding DailyNorm.Phosphorus}" CurrentValue="{Binding TotalDaily.Phosphorus}" Header="{x:Static p:Resource.Phosphorus}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="omega3" MinNormalValue="{Binding DailyNorm.Omega3}" CurrentValue="{Binding TotalDaily.Omega3}" Header="{x:Static p:Resource.Omega3}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="omega6" MinNormalValue="{Binding DailyNorm.Omega6}" CurrentValue="{Binding TotalDaily.Omega6}" Header="{x:Static p:Resource.Omega6}"/>
                 </Grid>
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
@@ -209,12 +211,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GradientRectangle Grid.Row="0" x:Name="sodium" MinNormalValue="{Binding Etalon.Sodium}" CurrentValue="{Binding Summary.Sodium}" Header="{x:Static p:Resource.Sodium}"/>
-                    <local:GradientRectangle Grid.Row="1" x:Name="zink" MinNormalValue="{Binding Etalon.Zink}" CurrentValue="{Binding Summary.Zink}" Header="{x:Static p:Resource.Zink}"/>
-                    <local:GradientRectangle Grid.Row="2" x:Name="copper" MinNormalValue="{Binding Etalon.Copper}" CurrentValue="{Binding Summary.Copper}" Header="{x:Static p:Resource.Copper}"/>
-                    <local:GradientRectangle Grid.Row="3" x:Name="fluorine" MinNormalValue="{Binding Etalon.Fluorine}" CurrentValue="{Binding Summary.Fluorine}" Header="{x:Static p:Resource.Fluorine}"/>
-                    <local:GradientRectangle Grid.Row="4" x:Name="chromium" MinNormalValue="{Binding Etalon.Chromium}" CurrentValue="{Binding Summary.Chromium}" Header="{x:Static p:Resource.Chromium}"/>
-                    <local:GradientRectangle Grid.Row="5" x:Name="chlorine" MinNormalValue="{Binding Etalon.Chlorine}" CurrentValue="{Binding Summary.Chlorine}" Header="{x:Static p:Resource.Chlorine}"/>
+                    <local:GradientRectangle Grid.Row="0" x:Name="sodium" MinNormalValue="{Binding DailyNorm.Sodium}" CurrentValue="{Binding TotalDaily.Sodium}" Header="{x:Static p:Resource.Sodium}"/>
+                    <local:GradientRectangle Grid.Row="1" x:Name="zink" MinNormalValue="{Binding DailyNorm.Zink}" CurrentValue="{Binding TotalDaily.Zink}" Header="{x:Static p:Resource.Zink}"/>
+                    <local:GradientRectangle Grid.Row="2" x:Name="copper" MinNormalValue="{Binding DailyNorm.Copper}" CurrentValue="{Binding TotalDaily.Copper}" Header="{x:Static p:Resource.Copper}"/>
+                    <local:GradientRectangle Grid.Row="3" x:Name="fluorine" MinNormalValue="{Binding DailyNorm.Fluorine}" CurrentValue="{Binding TotalDaily.Fluorine}" Header="{x:Static p:Resource.Fluorine}"/>
+                    <local:GradientRectangle Grid.Row="4" x:Name="chromium" MinNormalValue="{Binding DailyNorm.Chromium}" CurrentValue="{Binding TotalDaily.Chromium}" Header="{x:Static p:Resource.Chromium}"/>
+                    <local:GradientRectangle Grid.Row="5" x:Name="chlorine" MinNormalValue="{Binding DailyNorm.Chlorine}" CurrentValue="{Binding TotalDaily.Chlorine}" Header="{x:Static p:Resource.Chlorine}"/>
                 </Grid>
             </Grid>
         </GroupBox>

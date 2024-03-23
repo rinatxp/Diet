@@ -50,7 +50,7 @@ namespace Diet
             var food = new Food
             {
                 Name = GetTextBoxContent(foodName),
-                Max = Convert.ToInt32(GetValue(foodMax)) * 100,
+                MaxDailyPortion = Convert.ToInt32(GetValue(foodMax)) * 100,
 
                 Calories = GetValue(calories),
                 Proteins = GetValue(proteins),
