@@ -48,10 +48,12 @@
                         <DataTemplate>
                             <DockPanel Margin="10,5,10,0">
                                 <TextBlock FontSize="15" Margin="0,5,0,0" 
-                                               Width="120" DockPanel.Dock="Left"
+                                               Width="140" DockPanel.Dock="Left"
                                                Name="tb" Text="{Binding Name}" 
                                                HorizontalAlignment="Stretch" 
                                                Foreground="#FF77D1CE"/>
+                                <TextBlock FontSize="15" Margin="10,5,5,0" Width="40" DockPanel.Dock="Left"
+                                           Foreground="#FF77D1CE" Text="{Binding ElementName=slider, Path=Value}"/>
                                 <Button Margin="0,4,0,0" DockPanel.Dock="Right" Height="{Binding ElementName=tb, Path=ActualHeight}" 
                                         Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualHeight}"
                                         Click="DeleteSliderButton_Click" Tag="{Binding Name}">
